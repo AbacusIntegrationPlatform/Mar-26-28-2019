@@ -1,3 +1,5 @@
+let bye = (name = "Ram") => {};
+
 // Create an arrow function called hello that takes your name and displays it on the console
 
 let hello = (name) => console.log(`Hi ${name}`);

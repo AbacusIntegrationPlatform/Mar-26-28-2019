@@ -2,4 +2,73 @@
 	<head>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.7.2/redux.min.js"></script>	
 	</head>	
+	<body>
+		<input type="text" id="name" placeholder="Name"> <br/>
+		<button id="btn">Get Time</button>
+		<button id="greetbtn">Greet</button>
+		<hr/>
+		<h3 id="time"></h3>
+		<h3 id="message"></h3>
+		<script>
+			const initialState = {
+				currentTime: "",
+				message: ""
+			};
+			
+			const reducer = (state = initialState, action) => {
+				switch (action.type) {
+					case "GET_TIME":
+						let now = new Date().toString();
+						return Object.assign({}, state, { currentTime: now });
+					case "GET_MESSAGE": 
+						let name = action.payload;
+						let message = `Hello ${name}`;
+						return Object.assign({}, state, { message });	
+					default:
+						return state;
+				}
+				/*
+				if(action.type === "GET_TIME") {
+					let now = new Date().toString();
+
+					//DO NOT MODIFY EXISTING STATE	
+					//state.currentTime = now;
+					
+					let newState = Object.assign({}, state);
+					newState.currentTime = now;
+					return newState;
+				}
+				else if(action.type === "GET_MESSAGE") {
+					let name = action.payload;
+					let message = `Hello ${name}`;
+					return Object.assign({}, state, { message });
+				}
+				*/
+			}
+			let { createStore } = Redux;
+			let store = createStore(reducer);
+			
+			document.getElementById("btn").onclick = () => {
+				store.dispatch({ type: "GET_TIME" })
+			}
+			
+			document.getElementById("greetbtn").onclick = () => {
+				let name = document.getElementById("name").value;
+				store.dispatch({ type: "GET_MESSAGE", payload: name })
+			}
+			
+			
+			
+			//NON-React code
+			store.subscribe(() => {
+				let { currentTime, message } = store.getState();
+				document.getElementById("time").innerHTML = currentTime;
+				document.getElementById("message").innerHTML = message;
+			});
+			
+			
+			
+			
+		</script>		
+	</body>	
 </html>
