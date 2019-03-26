@@ -19,7 +19,8 @@
 				switch (action.type) {
 					case "GET_TIME":
 						let now = new Date().toString();
-						return Object.assign({}, state, { currentTime: now });
+						return {...state, currentTime: now };
+						//return Object.assign({}, state, { currentTime: now });
 					case "GET_MESSAGE": 
 						let name = action.payload;
 						let message = `Hello ${name}`;
